@@ -10,14 +10,25 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
+import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import ListIcon from '@mui/icons-material/List';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useRouter } from "next/router";
 
 const drawerWidth = 240;
 
-const menuItems = ["Inbox", "Starred", "Send email", "Drafts"];
-
 function ClippedDrawer() {
+
+  const router = useRouter();
+
+  function isCurrentPage(name: string, exact: boolean = false) {
+    if(exact) return router.asPath == name;
+    return router.asPath.startsWith(name);
+  }
+
+  console.log(router.asPath);
+  
+
   return (
     <Drawer
       variant="permanent"
@@ -32,11 +43,21 @@ function ClippedDrawer() {
         <List>
           <Link href="/">
             <ListItem disablePadding>
+              <ListItemButton selected={isCurrentPage("/", true)}>
+                <ListItemIcon>
+                  <ViewModuleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Overview" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link href="/logs">
+            <ListItem disablePadding selected={isCurrentPage("/logs")}>
               <ListItemButton>
                 <ListItemIcon>
                   <ListIcon />
                 </ListItemIcon>
-                <ListItemText primary="Overview" />
+                <ListItemText primary="Logs" />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -44,7 +65,7 @@ function ClippedDrawer() {
         <Divider />
         <List>
           <Link href="/settings">
-            <ListItem disablePadding>
+            <ListItem disablePadding selected={isCurrentPage("/settings")}>
               <ListItemButton>
                 <ListItemIcon>
                   <SettingsIcon />
