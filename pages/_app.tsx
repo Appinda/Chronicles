@@ -31,10 +31,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider theme={THEMES[theme] || THEMES.light}>
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', height: '100vh' }}>
       <MenuAppBar theme={theme} onThemeChange={onThemeChange} />
       <AppDrawer />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
         <Toolbar />
         <Component {...pageProps} />
       </Box>

@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useRouter } from "next/router";
+
 import Link from "next/Link";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -13,7 +15,6 @@ import ListItemText from "@mui/material/ListItemText";
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import ListIcon from '@mui/icons-material/List';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useRouter } from "next/router";
 
 const drawerWidth = 240;
 
