@@ -7,11 +7,18 @@ import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import settings from "../../config/settings";
-import AccountCircle from '@mui/icons-material/AccountCircle';
 
-function MenuAppBar() {
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+
+type Props = {
+  theme: string;
+  onThemeChange?: (theme: string) => any;
+};
+
+function MenuAppBar(props: Props) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [tabsValue, setTabsValue] = React.useState(0);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -21,8 +28,15 @@ function MenuAppBar() {
     setAnchorEl(null);
   };
 
+  const toggleDarkTheme = () => { 
+    props.onThemeChange?.(props.theme == "dark" ? "light" : "dark");
+  }
+
   return (
-    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+    <AppBar
+      position="fixed"
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <Toolbar>
         <Typography variant="h6" noWrap component="div" sx={{ mr: 2 }}>
           {settings.appname}
@@ -31,13 +45,22 @@ function MenuAppBar() {
         <div>
           <IconButton
             size="large"
+            aria-label="Set dark theme"
+            aria-controls="menu-appbar"
+            onClick={toggleDarkTheme}
+            color="inherit"
+          >
+            {props.theme == 'dark' ? <DarkModeIcon /> : <LightModeIcon /> }
+          </IconButton>
+          <IconButton
+            size="large"
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={handleMenu}
             color="inherit"
           >
-            <AccountCircle />
+            <AccountCircleIcon />
           </IconButton>
           <Menu
             id="menu-appbar-list"
